@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { AiFillLike } from "react-icons/ai";
-import { BiExit } from "react-icons/bi";
-import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import { getPostById, likePost, commentPost } from "../services/blog";
-import { toast } from "react-toastify";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { AiFillLike } from 'react-icons/ai';
+import { BiExit } from 'react-icons/bi';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Loader from '../components/Loader';
+import { getPostById, likePost, commentPost } from '../services/blog';
+import { toast } from 'react-toastify';
 
 const BlogpageScreen = () => {
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();

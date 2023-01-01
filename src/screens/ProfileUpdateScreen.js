@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { saveUserInfo } from "../redux/UserSlices/userSlice";
-import getBase64 from "../utils/ImageHandler";
-import { editProfile, getProfile } from "../services/user";
-import { toast } from "react-toastify";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { saveUserInfo } from '../redux/UserSlices/userSlice';
+import getBase64 from '../utils/ImageHandler';
+import { editProfile, getProfile } from '../services/user';
+import { toast } from 'react-toastify';
 
 const ProfileUpdateScreen = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const [file, setFile] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
 
@@ -33,7 +34,7 @@ const ProfileUpdateScreen = () => {
 
   useEffect(() => {
     if (!userInfo.data) {
-      navigate("/login");
+      navigate('/login');
     } else {
       const { data } = { ...userInfo };
       setUserProfile(data);
@@ -42,17 +43,17 @@ const ProfileUpdateScreen = () => {
 
   const submitHandler = async () => {
     const form = new FormData();
-    form.append("first_name", firstName);
-    form.append("last_name", lastName);
-    form.append("email", email);
-    form.append("file", file);
+    form.append('first_name', firstName);
+    form.append('last_name', lastName);
+    form.append('email', email);
+    form.append('file', file);
     try {
       await editProfile(userInfo.data._id, form);
       const { data } = await getProfile();
       dispatch(saveUserInfo(data.doc));
       setUserProfile(data.doc);
-      toast.success("Profile updated successfully");
-      navigate("/profile");
+      toast.success('Profile updated successfully');
+      navigate('/profile');
     } catch (error) {
       toast.error(error.message);
     }

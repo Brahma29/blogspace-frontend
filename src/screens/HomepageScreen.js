@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import BlogCard from "../components/BlogCard";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import { getPosts } from "../services/blog";
-import { saveBlogs } from "../redux/BlogSlices/blogSlice";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import BlogCard from '../components/BlogCard';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../components/Loader';
+import { getPosts } from '../services/blog';
+import { saveBlogs } from '../redux/BlogSlices/blogSlice';
 
 const HomepageScreen = () => {
   const [loading, setLoading] = useState(false);

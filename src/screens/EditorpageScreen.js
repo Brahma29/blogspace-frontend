@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import RichTextEditor from "react-rte";
-import { BiExit } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { addPost, editPost, getPostById } from "../services/blog";
-import { toast } from "react-toastify";
-import getBase64 from "../utils/ImageHandler";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import RichTextEditor from 'react-rte';
+import { BiExit } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { addPost, editPost, getPostById } from '../services/blog';
+import { toast } from 'react-toastify';
+import getBase64 from '../utils/ImageHandler';
 
 const EditorpageScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,7 @@ const EditorpageScreen = () => {
   const [file, setFile] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
 
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const { id } = useParams();
 
   const onArticleChange = (article) => {
@@ -31,28 +32,28 @@ const EditorpageScreen = () => {
   const userInfo = useSelector((state) => state.userInfo);
 
   const submitHandler = async () => {
-    let articleStr = article.toString("html");
+    let articleStr = article.toString('html');
     const form = new FormData();
-    form.append("title", title);
-    form.append("article", articleStr);
-    form.append("file", file);
+    form.append('title', title);
+    form.append('article', articleStr);
+    form.append('file', file);
     try {
       if (id) {
         await editPost(id, form);
       } else {
         await addPost(form);
       }
-      toast.success(`Post ${id ? "updated" : "added"} successfully`);
-      navigate("/");
+      toast.success(`Post ${id ? 'updated' : 'added'} successfully`);
+      navigate('/');
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   const cancelHandler = () => {
-    setTitle("");
+    setTitle('');
     setArticle(RichTextEditor.createEmptyValue());
-    navigate("/");
+    navigate('/');
   };
 
   const fetchPost = async () => {
@@ -61,7 +62,7 @@ const EditorpageScreen = () => {
       const { data } = await getPostById(id);
       setTitle(data.doc.title);
       setArticle(
-        RichTextEditor.createValueFromString(data.doc.article, "html")
+        RichTextEditor.createValueFromString(data.doc.article, 'html')
       );
       setImageSrc(data.doc.cover);
       setLoading(false);
@@ -73,7 +74,7 @@ const EditorpageScreen = () => {
 
   useEffect(() => {
     if (!userInfo.data) {
-      navigate("/login");
+      navigate('/login');
     }
 
     if (id) {

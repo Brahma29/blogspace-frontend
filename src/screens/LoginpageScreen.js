@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login, getProfile } from "../services/user";
-import { saveUserInfo } from "../redux/UserSlices/userSlice";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, getProfile } from '../services/user';
+import { saveUserInfo } from '../redux/UserSlices/userSlice';
 
 const LoginpageScreen = () => {
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,19 +16,19 @@ const LoginpageScreen = () => {
 
   const validator = () => {
     let error = false;
-    if (email === "") {
-      toast.error("Email is mandatory.");
-    } else if (password === "") {
-      toast.error("Password is mandatory.");
+    if (email === '') {
+      toast.error('Email is mandatory.');
+    } else if (password === '') {
+      toast.error('Password is mandatory.');
     }
     return error;
   };
 
   useEffect(() => {
     if (userInfo && userInfo.data) {
-      navigate("/");
+      navigate('/');
     } else {
-      navigate("/login");
+      navigate('/login');
     }
   }, []);
 
@@ -35,12 +36,12 @@ const LoginpageScreen = () => {
     if (!validator()) {
       try {
         const { data } = await login({ email, password });
-        localStorage.setItem("access_token", data.doc.token);
+        localStorage.setItem('access_token', data.doc.token);
         const { data: userInfo } = await getProfile();
-        localStorage.setItem("userInfo", JSON.stringify(userInfo.doc));
+        localStorage.setItem('userInfo', JSON.stringify(userInfo.doc));
         dispatch(saveUserInfo(userInfo.doc));
-        toast.success("Welcome to BlogSpace!");
-        navigate("/");
+        toast.success('Welcome to BlogSpace!');
+        navigate('/');
       } catch (error) {
         toast.error(error.message);
       }
@@ -79,7 +80,7 @@ const LoginpageScreen = () => {
 
           <div className="w-full form-group">
             <p className="text-sm">
-              Do we know you?{" "}
+              Do we know you?{' '}
               <Link to="/signup" className="underline text-btnGreen">
                 Register
               </Link>

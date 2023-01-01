@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { RiEditBoxFill } from "react-icons/ri";
-import { getUserPosts, removePost } from "../services/blog";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { RiEditBoxFill } from 'react-icons/ri';
+import { getUserPosts, removePost } from '../services/blog';
 
 const UserprofileScreen = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const UserprofileScreen = () => {
     try {
       await removePost(postId);
       await fetchUserPosts();
-      toast.success("Post Deleted Successfully!");
+      toast.success('Post Deleted Successfully!');
     } catch (error) {
       toast.error(error.message);
     }
@@ -32,7 +33,7 @@ const UserprofileScreen = () => {
 
   useEffect(() => {
     if (!userInfo.data) {
-      navigate("/login");
+      navigate('/login');
     } else {
       fetchUserPosts();
     }
